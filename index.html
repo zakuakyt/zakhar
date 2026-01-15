@@ -1,13 +1,318 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ZakharL</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap');
 
-  <!-- external CSS file assumed as style.css -->
-  <link rel="stylesheet" href="style.css">
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #0d1b2a;
+      color: #e0e8f0;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Blueprint grid background */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: 
+        linear-gradient(rgba(100, 200, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(100, 200, 255, 0.03) 1px, transparent 1px);
+      background-size: 30px 30px;
+      z-index: -2;
+    }
+
+    #bgCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: -1;
+      opacity: 0.4;
+    }
+
+    .landing {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+    }
+
+    .landing img {
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      margin-bottom: 25px;
+      border: 4px solid #64c8ff;
+      box-shadow: 0 0 30px rgba(100, 200, 255, 0.4);
+    }
+
+    .landing h1 {
+      font-size: 3.5rem;
+      margin-bottom: 15px;
+      color: #64c8ff;
+      font-weight: 700;
+      letter-spacing: -1px;
+    }
+
+    .landing p {
+      color: #a8c5e0;
+      margin-top: 10px;
+      font-size: 1.2rem;
+    }
+
+    .down-arrow {
+      width: 0;
+      height: 0;
+      border-left: 15px solid transparent;
+      border-right: 15px solid transparent;
+      border-top: 20px solid #64c8ff;
+      margin-top: 50px;
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+      40% { transform: translateY(-10px); }
+      60% { transform: translateY(-5px); }
+    }
+
+    section {
+      padding: 100px 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    section h2 {
+      font-size: 2.8rem;
+      margin-bottom: 50px;
+      color: #64c8ff;
+      text-align: center;
+      font-weight: 700;
+    }
+
+    /* Skills */
+    .skill-viz {
+      margin-top: 40px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 25px;
+    }
+
+    .skill-item {
+      background: rgba(20, 35, 55, 0.6);
+      border: 2px solid rgba(100, 200, 255, 0.3);
+      border-radius: 12px;
+      padding: 25px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .skill-item:hover {
+      border-color: #64c8ff;
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(100, 200, 255, 0.2);
+    }
+
+    .skill-name {
+      font-weight: 600;
+      color: #64c8ff;
+      margin-bottom: 12px;
+      font-size: 1.1rem;
+    }
+
+    .skill-bar {
+      height: 8px;
+      background: rgba(100, 200, 255, 0.1);
+      border-radius: 4px;
+      overflow: hidden;
+      margin-top: 10px;
+    }
+
+    .skill-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #64c8ff, #4a9fd8);
+      border-radius: 4px;
+      transition: width 1s ease;
+      width: 0;
+      box-shadow: 0 0 10px rgba(100, 200, 255, 0.5);
+    }
+
+    .skill-item:hover .skill-fill {
+      animation: fillBar 1s forwards;
+    }
+
+    @keyframes fillBar {
+      to { width: var(--skill-level); }
+    }
+
+    /* Projects */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 30px;
+      margin-top: 40px;
+    }
+
+    .project-box {
+      background: rgba(20, 35, 55, 0.6);
+      border: 2px solid rgba(100, 200, 255, 0.3);
+      border-radius: 16px;
+      padding: 0;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      overflow: hidden;
+    }
+
+    .project-box:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 15px 40px rgba(100, 200, 255, 0.25);
+      border-color: #64c8ff;
+    }
+
+    .project-box img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      border-bottom: 2px solid rgba(100, 200, 255, 0.3);
+    }
+
+    .project-content {
+      padding: 25px;
+    }
+
+    .project-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #64c8ff;
+      margin-bottom: 12px;
+    }
+
+    .project-box p {
+      line-height: 1.7;
+      color: #b3d4f0;
+      font-size: 0.95rem;
+    }
+
+    /* Activities */
+    .activities-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+      margin-top: 40px;
+    }
+
+    .activity-card {
+      background: rgba(20, 35, 55, 0.6);
+      border: 2px solid rgba(100, 200, 255, 0.3);
+      border-radius: 16px;
+      padding: 30px;
+      transition: all 0.3s ease;
+    }
+
+    .activity-card:hover {
+      border-color: #64c8ff;
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(100, 200, 255, 0.2);
+    }
+
+    .activity-card h3 {
+      color: #64c8ff;
+      margin-bottom: 12px;
+      font-size: 1.4rem;
+      font-weight: 700;
+    }
+
+    .activity-card p {
+      color: #b3d4f0;
+      line-height: 1.7;
+      font-size: 0.95rem;
+    }
+
+    /* Contact */
+    .contact-container {
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .contact-intro {
+      text-align: center;
+      color: #a8c5e0;
+      margin-bottom: 50px;
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+
+    .contact-links {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+    }
+
+    .contact-card {
+      background: rgba(20, 35, 55, 0.6);
+      border: 2px solid rgba(100, 200, 255, 0.3);
+      border-radius: 16px;
+      padding: 40px 30px;
+      text-align: center;
+      text-decoration: none;
+      color: #e0e8f0;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .contact-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 15px 40px rgba(100, 200, 255, 0.25);
+      border-color: #64c8ff;
+    }
+
+    .contact-icon {
+      color: #64c8ff;
+      margin-bottom: 20px;
+      transition: transform 0.3s ease;
+    }
+
+    .contact-card:hover .contact-icon {
+      transform: scale(1.15);
+    }
+
+    .contact-card h3 {
+      color: #64c8ff;
+      margin-bottom: 10px;
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+
+    .contact-card p {
+      color: #a8c5e0;
+      font-size: 1rem;
+      font-family: 'Space Mono', monospace;
+    }
+
+    /* Smooth scrolling */
+    html {
+      scroll-behavior: smooth;
+    }
+  </style>
 </head>
 <body>
   <canvas id="bgCanvas"></canvas>
@@ -16,66 +321,139 @@
   <div class="landing">
     <img src="main.png" alt="Profile" />
     <h1>Zakhar Liskovyi</h1>
-    <p style="color:#d3a7ff; margin-top:10px;">Robotics, Engineering, Computer Science</p>
+    <p>Robotics · Programming · Design</p>
     <div class="down-arrow"></div>
   </div>
 
-  <!-- About -->
- <section>
-  <h2>Skills</h2>
-
-  <div style="margin-top:20px; max-width:700px; line-height:1.8;">
-    
-    <h4 style="margin-bottom:6px;">Languages & Coding</h3>
-    <p>C++, Java, Lua, HTML, CSS, LOVE2D, Roblox Studio</p>
-
-    <br/>
-
-    <h4 style="margin-bottom:6px;">Design & Tools</h3>
-    <p>Fusion 360, Onshape, AutoCAD, Photoshop, After Effects, KiCad, EasyEDA</p>
-
-    <br/>
-
-    <h4 style="margin-bottom:6px;">Hardware & Electronics</h3>
-    <p>Raspberry Pi, Arduino, VexCode</p>
-
-  </div>
-</section>
-
+  <!-- Skills -->
+  <section>
+    <h2>Tools</h2>
+    <div class="skill-viz">
+      <div class="skill-item" style="--skill-level: 90%">
+        <div class="skill-name">C++ & Java</div>
+        <div class="skill-bar"><div class="skill-fill"></div></div>
+      </div>
+      <div class="skill-item" style="--skill-level: 85%">
+        <div class="skill-name">Fusion 360</div>
+        <div class="skill-bar"><div class="skill-fill"></div></div>
+      </div>
+      <div class="skill-item" style="--skill-level: 80%">
+        <div class="skill-name">KiCad & PCB Design</div>
+        <div class="skill-bar"><div class="skill-fill"></div></div>
+      </div>
+      <div class="skill-item" style="--skill-level: 88%">
+        <div class="skill-name">Raspberry Pi & Arduino</div>
+        <div class="skill-bar"><div class="skill-fill"></div></div>
+      </div>
+      <div class="skill-item" style="--skill-level: 75%">
+        <div class="skill-name">HTML/CSS</div>
+        <div class="skill-bar"><div class="skill-fill"></div></div>
+      </div>
+    </div>
+  </section>
 
   <!-- Projects -->
   <section>
     <h2>Projects</h2>
-    <div class="projects-grid" style="margin-top:40px;">
-      <div class="project-box" onclick="location.href='https://github.com/spicyweedtimmothyoh/tetriopad'">
+    <div class="projects-grid">
+      <div class="project-box" onclick="location.href='https://github.com/zakuakyt/tetriopad'">
         <img src="proj1.png" />
-        <p>a modular and ergonomic custom macro pad to enhance tetr.io gameplay. designed a pcb, case, and programmed using KMK and python.</p>
+        <div class="project-content">
+          <div class="project-title">Tetr.io Macro Pad</div>
+          <p>A modular and ergonomic custom macro pad to enhance tetr.io gameplay. Designed PCB, case, and programmed using KMK and Python.</p>
+        </div>
       </div>
-      <div class="project-box" onclick="location.href='https://github.com/spicyweedtimmothyoh/wordleart'">
+      <div class="project-box" onclick="location.href='https://github.com/zakuakyt/wordleart'">
         <img src="proj2.png" />
-        <p>program that lets you turn your wordle board into a drawing.</p>
+        <div class="project-content">
+          <div class="project-title">Wordle Art Generator</div>
+          <p>Program that lets you turn your Wordle board into a drawing.</p>
+        </div>
       </div>
-      <div class="project-box" onclick="location.href='https://github.com/'">
+      <div class="project-box" onclick="location.href='https://github.com/zakuakyt/kraken42'">
         <img src="proj3.png" />
-        <p>Project 3 description goes here.</p>
+        <div class="project-content">
+          <div class="project-title">Kraken42 Keyboard</div>
+          <p>A wireless ergonomic split keyboard with 42 keys and 2 OLED displays.</p>
+        </div>
       </div>
       <div class="project-box" onclick="location.href='https://github.com/'">
         <img src="proj4.png" />
-        <p>Project 4 description goes here.</p>
+        <div class="project-content">
+          <div class="project-title">Project 4</div>
+          <p>Project 4 description goes here.</p>
+        </div>
       </div>
       <div class="project-box" onclick="location.href='https://github.com/'">
         <img src="proj5.png" />
-        <p>Project 5 description goes here.</p>
+        <div class="project-content">
+          <div class="project-title">Project 5</div>
+          <p>Project 5 description goes here.</p>
+        </div>
       </div>
       <div class="project-box" onclick="location.href='https://github.com/'">
         <img src="proj6.png" />
-        <p>Project 6 description goes here.</p>
+        <div class="project-content">
+          <div class="project-title">Project 6</div>
+          <p>Project 6 description goes here.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Activities -->
+  <section>
+    <h2>Activities</h2>
+    <div class="activities-grid">
+      <div class="activity-card">
+        <h3>VEX Robotics</h3>
+        <p>Team captain and lead programmer for VEX VRC team 70220A Robocop.</p>
+      </div>
+      <div class="activity-card">
+        <h3>Science Olympiad</h3>
+        <p>Member of national-qualifying TJSO team, accumulated 20+ medals in engineering and build events.</p>
+      </div>
+      <div class="activity-card">
+        <h3>Zakuak</h3>
+        <p>Manage STEM learning youtube channel with 11,000 subscribers and 1,000,000+ views.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Get in Touch -->
+  <section>
+    <h2>Get in Touch</h2>
+    <div class="contact-container">
+      <p class="contact-intro">
+        Want to collaborate on a project or just say hi? Feel free to reach out!
+      </p>
+      <div class="contact-links">
+        <a href="https://github.com/zakuakyt" class="contact-card" target="_blank">
+          <div class="contact-icon">
+            <svg width="60" height="60" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+            </svg>
+          </div>
+          <h3>GitHub</h3>
+          <p>zakuakyt</p>
+        </a>
+        
+        <a href="mailto:zakuakyt@gmail.com" class="contact-card">
+          <div class="contact-icon">
+            <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+              <polyline points="22,6 12,13 2,6"></polyline>
+            </svg>
+          </div>
+          <h3>Email</h3>
+          <p>zakuakyt@gmail.com</p>
+        </a>
       </div>
     </div>
   </section>
 
   <script>
-    // neural network float effect
+    // Subtle animated background
     const canvas = document.getElementById('bgCanvas');
     const ctx = canvas.getContext('2d');
     let w, h;
@@ -89,12 +467,12 @@
     window.addEventListener('resize', resize);
     resize();
 
-    for (let i = 0; i < 60; i++) {
+    for (let i = 0; i < 50; i++) {
       nodes.push({
         x: Math.random() * w,
         y: Math.random() * h,
-        vx: (Math.random() - 0.5) * 0.5,
-        vy: (Math.random() - 0.5) * 0.5
+        vx: (Math.random() - 0.5) * 0.4,
+        vy: (Math.random() - 0.5) * 0.4
       });
     }
 
@@ -105,7 +483,7 @@
 
     function draw() {
       ctx.clearRect(0, 0, w, h);
-      ctx.fillStyle = '#ffffff';
+      ctx.fillStyle = '#64c8ff';
 
       nodes.forEach(n => {
         n.x += n.vx;
@@ -114,13 +492,22 @@
         if (n.x < 0 || n.x > w) n.vx *= -1;
         if (n.y < 0 || n.y > h) n.vy *= -1;
 
+        const dx = mouse.x - n.x;
+        const dy = mouse.y - n.y;
+        const dist = Math.sqrt(dx*dx + dy*dy);
+        
+        if (dist < 120) {
+          n.x -= dx * 0.008;
+          n.y -= dy * 0.008;
+        }
+
         ctx.beginPath();
         ctx.arc(n.x, n.y, 2, 0, Math.PI * 2);
         ctx.fill();
       });
 
-      // lines
-      ctx.strokeStyle = 'rgba(200,150,255,0.2)';
+      ctx.strokeStyle = 'rgba(100, 200, 255, 0.15)';
+      ctx.lineWidth = 1;
       nodes.forEach(a => {
         nodes.forEach(b => {
           let dx = a.x - b.x;
@@ -138,7 +525,41 @@
       requestAnimationFrame(draw);
     }
     draw();
+
+    // Easter egg - Konami code
+    let konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+    let konamiIndex = 0;
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === konamiCode[konamiIndex]) {
+        konamiIndex++;
+        if (konamiIndex === konamiCode.length) {
+          activateEasterEgg();
+          konamiIndex = 0;
+        }
+      } else {
+        konamiIndex = 0;
+      }
+    });
+
+    function activateEasterEgg() {
+      document.body.style.animation = 'rainbow 2s linear infinite';
+      
+      const style = document.createElement('style');
+      style.textContent = `
+        @keyframes rainbow {
+          0% { filter: hue-rotate(0deg); }
+          100% { filter: hue-rotate(360deg); }
+        }
+      `;
+      document.head.appendChild(style);
+
+      setTimeout(() => {
+        document.body.style.animation = '';
+      }, 10000);
+
+      alert('🎮 Konami Code activated! Rainbow mode! 🌈');
+    }
   </script>
 </body>
 </html>
-
