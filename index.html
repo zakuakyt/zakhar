@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ZakharL</title>
+  <title>Zakhar Liskovyi</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap');
 
     * {
       margin: 0;
@@ -13,397 +13,521 @@
       box-sizing: border-box;
     }
 
-    body {
-      font-family: 'Poppins', sans-serif;
-      background: #0d1b2a;
-      color: #e0e8f0;
-      overflow-x: hidden;
-      position: relative;
+    :root {
+      --cream: #f5f0eb;
+      --cream-dark: #ebe4dc;
+      --lilac: #c4b5d4;
+      --lilac-light: #ddd4e8;
+      --lilac-dark: #9a85b0;
+      --text: #2a2a2a;
+      --text-muted: #7a7a7a;
+      --text-light: #a0a0a0;
     }
 
-    /* Blueprint grid background */
-    body::before {
-      content: '';
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Nav */
+    nav {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
-      height: 100%;
-      background-image: 
-        linear-gradient(rgba(100, 200, 255, 0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(100, 200, 255, 0.03) 1px, transparent 1px);
-      background-size: 30px 30px;
-      z-index: -2;
+      padding: 28px 60px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 100;
+      background: rgba(245, 240, 235, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(196, 181, 212, 0.2);
     }
 
-    #bgCanvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      z-index: -1;
-      opacity: 0.4;
+    .nav-logo {
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--text);
+      letter-spacing: -0.5px;
     }
 
-    .landing {
-      height: 100vh;
+    .nav-links {
+      display: flex;
+      gap: 40px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      font-weight: 400;
+      letter-spacing: 0.5px;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--lilac-dark);
+    }
+
+    /* Hero */
+    .hero {
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
+      justify-content: flex-end;
+      padding: 0 60px 100px;
+    }
+
+    .hero-tag {
+      font-size: 0.8rem;
+      color: var(--lilac-dark);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+      font-weight: 500;
+    }
+
+    .hero h1 {
+      font-size: clamp(4rem, 10vw, 8.5rem);
+      font-weight: 700;
+      line-height: 0.95;
+      letter-spacing: -3px;
+      color: var(--text);
+      margin-bottom: 40px;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      font-weight: 300;
+      color: var(--lilac-dark);
+    }
+
+    .hero-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      max-width: 100%;
+    }
+
+    .hero-desc {
+      max-width: 380px;
+      color: var(--text-muted);
+      font-size: 1rem;
+      line-height: 1.7;
+      font-weight: 300;
+    }
+
+    .hero-scroll {
+      display: flex;
       align-items: center;
-      justify-content: center;
-      text-align: center;
-      position: relative;
+      gap: 12px;
+      color: var(--text-light);
+      font-size: 0.75rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
     }
 
-    .landing img {
-      width: 160px;
-      height: 160px;
-      border-radius: 50%;
-      margin-bottom: 25px;
-      border: 4px solid #64c8ff;
-      box-shadow: 0 0 30px rgba(100, 200, 255, 0.4);
+    .scroll-line {
+      width: 1px;
+      height: 50px;
+      background: var(--lilac);
+      animation: scrollPulse 2s infinite;
     }
 
-    .landing h1 {
-      font-size: 3.5rem;
-      margin-bottom: 15px;
-      color: #64c8ff;
-      font-weight: 700;
-      letter-spacing: -1px;
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 1; transform: scaleY(1); }
+      50% { opacity: 0.3; transform: scaleY(0.6); }
     }
 
-    .landing p {
-      color: #a8c5e0;
-      margin-top: 10px;
-      font-size: 1.2rem;
-    }
-
-    .down-arrow {
-      width: 0;
-      height: 0;
-      border-left: 15px solid transparent;
-      border-right: 15px solid transparent;
-      border-top: 20px solid #64c8ff;
-      margin-top: 50px;
-      animation: bounce 2s infinite;
-    }
-
-    @keyframes bounce {
-      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-      40% { transform: translateY(-10px); }
-      60% { transform: translateY(-5px); }
-    }
-
+    /* Sections */
     section {
-      padding: 100px 20px;
-      max-width: 1200px;
-      margin: 0 auto;
-      position: relative;
+      padding: 140px 60px;
     }
 
-    section h2 {
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      gap: 20px;
+      margin-bottom: 80px;
+    }
+
+    .section-num {
+      font-size: 0.75rem;
+      color: var(--lilac-dark);
+      font-weight: 500;
+      letter-spacing: 1px;
+    }
+
+    .section-title {
       font-size: 2.8rem;
-      margin-bottom: 50px;
-      color: #64c8ff;
-      text-align: center;
       font-weight: 700;
+      letter-spacing: -1.5px;
+      color: var(--text);
     }
 
-    /* Skills */
-    .skill-viz {
-      margin-top: 40px;
+    /* Tools */
+    .tools-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 25px;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 1px;
+      background: var(--lilac-light);
     }
 
-    .skill-item {
-      background: rgba(20, 35, 55, 0.6);
-      border: 2px solid rgba(100, 200, 255, 0.3);
-      border-radius: 12px;
-      padding: 25px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      position: relative;
+    .tool-item {
+      background: var(--cream);
+      padding: 40px 30px;
+      transition: background 0.25s;
+      cursor: default;
     }
 
-    .skill-item:hover {
-      border-color: #64c8ff;
-      transform: translateY(-5px);
-      box-shadow: 0 10px 30px rgba(100, 200, 255, 0.2);
+    .tool-item:hover {
+      background: var(--lilac-light);
     }
 
-    .skill-name {
-      font-weight: 600;
-      color: #64c8ff;
-      margin-bottom: 12px;
-      font-size: 1.1rem;
+    .tool-name {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 20px;
+      letter-spacing: -0.3px;
     }
 
-    .skill-bar {
-      height: 8px;
-      background: rgba(100, 200, 255, 0.1);
-      border-radius: 4px;
-      overflow: hidden;
-      margin-top: 10px;
+    .tool-bar-bg {
+      height: 3px;
+      background: var(--lilac-light);
+      width: 100%;
     }
 
-    .skill-fill {
+    .tool-bar-fill {
       height: 100%;
-      background: linear-gradient(90deg, #64c8ff, #4a9fd8);
-      border-radius: 4px;
-      transition: width 1s ease;
+      background: var(--lilac-dark);
       width: 0;
-      box-shadow: 0 0 10px rgba(100, 200, 255, 0.5);
+      transition: width 0.8s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    .skill-item:hover .skill-fill {
-      animation: fillBar 1s forwards;
-    }
-
-    @keyframes fillBar {
-      to { width: var(--skill-level); }
+    .tool-item:hover .tool-bar-fill {
+      width: var(--level);
     }
 
     /* Projects */
-    .projects-grid {
+    .projects-list {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .project-row {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 30px;
-      margin-top: 40px;
-    }
-
-    .project-box {
-      background: rgba(20, 35, 55, 0.6);
-      border: 2px solid rgba(100, 200, 255, 0.3);
-      border-radius: 16px;
-      padding: 0;
+      grid-template-columns: 80px 1fr 1fr auto;
+      align-items: center;
+      gap: 40px;
+      padding: 32px 0;
+      border-bottom: 1px solid var(--lilac-light);
+      text-decoration: none;
+      color: inherit;
+      transition: all 0.25s;
       cursor: pointer;
-      transition: all 0.3s ease;
-      overflow: hidden;
     }
 
-    .project-box:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 15px 40px rgba(100, 200, 255, 0.25);
-      border-color: #64c8ff;
+    .project-row:first-child {
+      border-top: 1px solid var(--lilac-light);
     }
 
-    .project-box img {
-      width: 100%;
-      height: 220px;
-      object-fit: cover;
-      border-bottom: 2px solid rgba(100, 200, 255, 0.3);
+    .project-row:hover {
+      padding-left: 16px;
+      background: linear-gradient(90deg, rgba(196,181,212,0.08), transparent);
     }
 
-    .project-content {
-      padding: 25px;
+    .project-num {
+      font-size: 0.75rem;
+      color: var(--text-light);
+      font-weight: 400;
+      font-variant-numeric: tabular-nums;
     }
 
-    .project-title {
+    .project-name {
       font-size: 1.5rem;
       font-weight: 700;
-      color: #64c8ff;
-      margin-bottom: 12px;
+      letter-spacing: -0.5px;
+      color: var(--text);
+      transition: color 0.25s;
     }
 
-    .project-box p {
-      line-height: 1.7;
-      color: #b3d4f0;
-      font-size: 0.95rem;
+    .project-row:hover .project-name {
+      color: var(--lilac-dark);
+    }
+
+    .project-tags {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .project-tag {
+      font-size: 0.72rem;
+      color: var(--lilac-dark);
+      background: var(--lilac-light);
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-weight: 500;
+      letter-spacing: 0.3px;
+    }
+
+    .project-arrow {
+      color: var(--text-light);
+      font-size: 1.2rem;
+      transition: all 0.25s;
+    }
+
+    .project-row:hover .project-arrow {
+      color: var(--lilac-dark);
+      transform: translate(4px, -4px);
     }
 
     /* Activities */
     .activities-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 30px;
-      margin-top: 40px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 40px;
     }
 
     .activity-card {
-      background: rgba(20, 35, 55, 0.6);
-      border: 2px solid rgba(100, 200, 255, 0.3);
-      border-radius: 16px;
-      padding: 30px;
-      transition: all 0.3s ease;
-    }
-
-    .activity-card:hover {
-      border-color: #64c8ff;
-      transform: translateY(-5px);
-      box-shadow: 0 10px 30px rgba(100, 200, 255, 0.2);
+      padding: 44px 0;
+      border-top: 2px solid var(--lilac);
     }
 
     .activity-card h3 {
-      color: #64c8ff;
-      margin-bottom: 12px;
-      font-size: 1.4rem;
+      font-size: 1.25rem;
       font-weight: 700;
+      color: var(--text);
+      letter-spacing: -0.4px;
+      margin-bottom: 16px;
     }
 
     .activity-card p {
-      color: #b3d4f0;
+      color: var(--text-muted);
+      font-size: 0.9rem;
       line-height: 1.7;
-      font-size: 0.95rem;
+      font-weight: 300;
     }
 
     /* Contact */
-    .contact-container {
-      max-width: 700px;
-      margin: 0 auto;
+    .contact-wrap {
+      text-align: center;
+      padding: 140px 60px 120px;
     }
 
-    .contact-intro {
-      text-align: center;
-      color: #a8c5e0;
-      margin-bottom: 50px;
-      font-size: 1.1rem;
-      line-height: 1.6;
+    .contact-wrap .section-header {
+      justify-content: center;
+      margin-bottom: 40px;
+    }
+
+    .contact-big {
+      font-size: clamp(2.5rem, 6vw, 5rem);
+      font-weight: 700;
+      letter-spacing: -2px;
+      line-height: 1.15;
+      color: var(--text);
+      margin-bottom: 60px;
+    }
+
+    .contact-big em {
+      font-style: italic;
+      font-weight: 300;
+      color: var(--lilac-dark);
     }
 
     .contact-links {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 30px;
+      display: flex;
+      justify-content: center;
+      gap: 48px;
     }
 
-    .contact-card {
-      background: rgba(20, 35, 55, 0.6);
-      border: 2px solid rgba(100, 200, 255, 0.3);
-      border-radius: 16px;
-      padding: 40px 30px;
-      text-align: center;
+    .contact-link {
       text-decoration: none;
-      color: #e0e8f0;
-      transition: all 0.3s ease;
-      cursor: pointer;
+      color: var(--text);
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      padding-bottom: 4px;
+      border-bottom: 1px solid var(--lilac);
+      transition: all 0.2s;
     }
 
-    .contact-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 15px 40px rgba(100, 200, 255, 0.25);
-      border-color: #64c8ff;
+    .contact-link:hover {
+      color: var(--lilac-dark);
+      border-color: var(--lilac-dark);
     }
 
-    .contact-icon {
-      color: #64c8ff;
-      margin-bottom: 20px;
-      transition: transform 0.3s ease;
+    /* Footer */
+    footer {
+      padding: 40px 60px;
+      border-top: 1px solid var(--lilac-light);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
 
-    .contact-card:hover .contact-icon {
-      transform: scale(1.15);
+    footer p {
+      color: var(--text-light);
+      font-size: 0.78rem;
     }
 
-    .contact-card h3 {
-      color: #64c8ff;
-      margin-bottom: 10px;
-      font-size: 1.5rem;
-      font-weight: 700;
+    /* Konami */
+    @keyframes rainbow {
+      0% { filter: hue-rotate(0deg); }
+      100% { filter: hue-rotate(360deg); }
     }
 
-    .contact-card p {
-      color: #a8c5e0;
-      font-size: 1rem;
-      font-family: 'Space Mono', monospace;
-    }
-
-    /* Smooth scrolling */
-    html {
-      scroll-behavior: smooth;
+    @media (max-width: 900px) {
+      nav { padding: 22px 30px; }
+      .hero { padding: 0 30px 80px; }
+      .hero h1 { letter-spacing: -1.5px; }
+      section { padding: 100px 30px; }
+      .tools-grid { grid-template-columns: repeat(2, 1fr); }
+      .project-row { grid-template-columns: 1fr auto; gap: 16px; }
+      .project-num, .project-tags { display: none; }
+      .activities-grid { grid-template-columns: 1fr; gap: 0; }
+      .activity-card { padding: 32px 0; }
+      .contact-wrap { padding: 100px 30px 80px; }
+      footer { padding: 30px; }
     }
   </style>
 </head>
 <body>
-  <canvas id="bgCanvas"></canvas>
 
-  <!-- Landing -->
-  <div class="landing">
-    <img src="main.png" alt="Profile" />
-    <h1>Zakhar Liskovyi</h1>
-    <p>Robotics · Programming · Design</p>
-    <div class="down-arrow"></div>
-  </div>
+  <nav>
+    <div class="nav-logo">ZL</div>
+    <ul class="nav-links">
+      <li><a href="#tools">Tools</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#activities">Activities</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
 
-  <!-- Skills -->
-  <section>
-    <h2>Tools</h2>
-    <div class="skill-viz">
-      <div class="skill-item" style="--skill-level: 90%">
-        <div class="skill-name">C++ & Java</div>
-        <div class="skill-bar"><div class="skill-fill"></div></div>
+  <!-- Hero -->
+  <section class="hero">
+    <p class="hero-tag">Robotics & Engineering</p>
+    <h1>Zakhar<br><em>Liskovyi</em></h1>
+    <div class="hero-bottom">
+      <p class="hero-desc">Building things that sit at the intersection of hardware, software, and design. From custom keyboards to walking robots.</p>
+      <div class="hero-scroll">
+        <div class="scroll-line"></div>
+        Scroll
       </div>
-      <div class="skill-item" style="--skill-level: 85%">
-        <div class="skill-name">Fusion 360</div>
-        <div class="skill-bar"><div class="skill-fill"></div></div>
+    </div>
+  </section>
+
+  <!-- Tools -->
+  <section id="tools">
+    <div class="section-header">
+      <span class="section-num">01</span>
+      <h2 class="section-title">Tools</h2>
+    </div>
+    <div class="tools-grid">
+      <div class="tool-item" style="--level:90%">
+        <div class="tool-name">C++ & Java</div>
+        <div class="tool-bar-bg"><div class="tool-bar-fill"></div></div>
       </div>
-      <div class="skill-item" style="--skill-level: 80%">
-        <div class="skill-name">KiCad & PCB Design</div>
-        <div class="skill-bar"><div class="skill-fill"></div></div>
+      <div class="tool-item" style="--level:85%">
+        <div class="tool-name">Fusion 360</div>
+        <div class="tool-bar-bg"><div class="tool-bar-fill"></div></div>
       </div>
-      <div class="skill-item" style="--skill-level: 88%">
-        <div class="skill-name">Raspberry Pi & Arduino</div>
-        <div class="skill-bar"><div class="skill-fill"></div></div>
+      <div class="tool-item" style="--level:80%">
+        <div class="tool-name">KiCad & PCB</div>
+        <div class="tool-bar-bg"><div class="tool-bar-fill"></div></div>
       </div>
-      <div class="skill-item" style="--skill-level: 75%">
-        <div class="skill-name">HTML/CSS</div>
-        <div class="skill-bar"><div class="skill-fill"></div></div>
+      <div class="tool-item" style="--level:88%">
+        <div class="tool-name">Pi & Arduino</div>
+        <div class="tool-bar-bg"><div class="tool-bar-fill"></div></div>
+      </div>
+      <div class="tool-item" style="--level:75%">
+        <div class="tool-name">HTML / CSS</div>
+        <div class="tool-bar-bg"><div class="tool-bar-fill"></div></div>
       </div>
     </div>
   </section>
 
   <!-- Projects -->
-  <section>
-    <h2>Projects</h2>
-    <div class="projects-grid">
-      <div class="project-box" onclick="location.href='https://github.com/zakuakyt/tetriopad'">
-        <img src="proj1.png" />
-        <div class="project-content">
-          <div class="project-title">Tetr.io Macro Pad</div>
-          <p>A modular and ergonomic custom macro pad to enhance tetr.io gameplay. Designed PCB, case, and programmed using KMK and Python.</p>
+  <section id="projects">
+    <div class="section-header">
+      <span class="section-num">02</span>
+      <h2 class="section-title">Projects</h2>
+    </div>
+    <div class="projects-list">
+      <a href="https://github.com/zakuakyt/tetriopad" class="project-row" target="_blank">
+        <span class="project-num">01</span>
+        <span class="project-name">Tetr.io Macro Pad</span>
+        <div class="project-tags">
+          <span class="project-tag">KMK</span>
+          <span class="project-tag">Python</span>
+          <span class="project-tag">PCB Design</span>
         </div>
-      </div>
-      <div class="project-box" onclick="location.href='https://github.com/zakuakyt/wordleart'">
-        <img src="proj2.png" />
-        <div class="project-content">
-          <div class="project-title">Wordle Art Generator</div>
-          <p>Program that lets you turn your Wordle board into a drawing.</p>
+        <span class="project-arrow">↗</span>
+      </a>
+      <a href="https://github.com/zakuakyt/wordleart" class="project-row" target="_blank">
+        <span class="project-num">02</span>
+        <span class="project-name">Wordle Art Generator</span>
+        <div class="project-tags">
+          <span class="project-tag">Python</span>
         </div>
-      </div>
-      <div class="project-box" onclick="location.href='https://github.com/zakuakyt/kraken42'">
-        <img src="proj3.png" />
-        <div class="project-content">
-          <div class="project-title">Kraken42 Keyboard</div>
-          <p>A wireless ergonomic split keyboard with 42 keys and 2 OLED displays.</p>
+        <span class="project-arrow">↗</span>
+      </a>
+      <a href="https://github.com/zakuakyt/kraken42" class="project-row" target="_blank">
+        <span class="project-num">03</span>
+        <span class="project-name">Kraken42 Keyboard</span>
+        <div class="project-tags">
+          <span class="project-tag">Wireless</span>
+          <span class="project-tag">Ergonomic</span>
+          <span class="project-tag">OLED</span>
         </div>
-      </div>
-      <div class="project-box" onclick="location.href='https://www.youtube.com/watch?v=iVk-a_xjMxU&t=3s'">
-        <img src="proj4.png" />
-        <div class="project-content">
-          <div class="project-title">Quadupod</div>
-          <p>WIP - 4 legged robot controlled using inverse kinematics.</p>
+        <span class="project-arrow">↗</span>
+      </a>
+      <a href="https://www.youtube.com/watch?v=iVk-a_xjMxU&t=3s" class="project-row" target="_blank">
+        <span class="project-num">04</span>
+        <span class="project-name">Quadupod</span>
+        <div class="project-tags">
+          <span class="project-tag">Robotics</span>
+          <span class="project-tag">Inverse Kinematics</span>
         </div>
-      </div>
-      <div class="project-box" onclick="location.href='https://github.com/zakuakyt/phohaf'">
-        <img src="proj5.png" />
-        <div class="project-content">
-          <div class="project-title">Phohaf</div>
-          <p>Gaming optimized half keyboard with per-key backlighting.</p>
+        <span class="project-arrow">↗</span>
+      </a>
+      <a href="https://github.com/zakuakyt/phohaf" class="project-row" target="_blank">
+        <span class="project-num">05</span>
+        <span class="project-name">Phohaf</span>
+        <div class="project-tags">
+          <span class="project-tag">Gaming</span>
+          <span class="project-tag">RGB</span>
         </div>
-      </div>
-      <div class="project-box" onclick="location.href='https://github.com/'">
-        <img src="proj6.png" />
-        <div class="project-content">
-          <div class="project-title">Project 6</div>
-          <p>Project 6 description goes here.</p>
+        <span class="project-arrow">↗</span>
+      </a>
+      <a href="https://github.com/" class="project-row" target="_blank">
+        <span class="project-num">06</span>
+        <span class="project-name">Project 6</span>
+        <div class="project-tags">
+          <span class="project-tag">TBD</span>
         </div>
-      </div>
+        <span class="project-arrow">↗</span>
+      </a>
     </div>
   </section>
 
   <!-- Activities -->
-  <section>
-    <h2>Activities</h2>
+  <section id="activities">
+    <div class="section-header">
+      <span class="section-num">03</span>
+      <h2 class="section-title">Activities</h2>
+    </div>
     <div class="activities-grid">
       <div class="activity-card">
         <h3>VEX Robotics</h3>
@@ -420,146 +544,31 @@
     </div>
   </section>
 
-  <!-- Get in Touch -->
-  <section>
-    <h2>Get in Touch</h2>
-    <div class="contact-container">
-      <p class="contact-intro">
-        Want to collaborate on a project or just say hi? Feel free to reach out!
-      </p>
-      <div class="contact-links">
-        <a href="https://github.com/zakuakyt" class="contact-card" target="_blank">
-          <div class="contact-icon">
-            <svg width="60" height="60" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-            </svg>
-          </div>
-          <h3>GitHub</h3>
-          <p>zakuakyt</p>
-        </a>
-        
-        <a href="mailto:zakuakyt@gmail.com" class="contact-card">
-          <div class="contact-icon">
-            <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-              <polyline points="22,6 12,13 2,6"></polyline>
-            </svg>
-          </div>
-          <h3>Email</h3>
-          <p>zakuakyt@gmail.com</p>
-        </a>
-      </div>
+  <!-- Contact -->
+  <div class="contact-wrap" id="contact">
+    <div class="section-header">
+      <span class="section-num">04</span>
+      <h2 class="section-title">Contact</h2>
     </div>
-  </section>
+    <p class="contact-big">Let's build<br>something <em>together</em></p>
+    <div class="contact-links">
+      <a href="https://github.com/zakuakyt" class="contact-link" target="_blank">GitHub</a>
+      <a href="mailto:zakuakyt@gmail.com" class="contact-link">Email</a>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2026 Zakhar Liskovyi</p>
+    <p>Built with care</p>
+  </footer>
 
   <script>
-    // Subtle animated background
-    const canvas = document.getElementById('bgCanvas');
-    const ctx = canvas.getContext('2d');
-    let w, h;
-    let nodes = [];
-    let mouse = { x: 0, y: 0 };
-
-    function resize() {
-      w = canvas.width = window.innerWidth;
-      h = canvas.height = window.innerHeight;
-    }
-    window.addEventListener('resize', resize);
-    resize();
-
-    for (let i = 0; i < 50; i++) {
-      nodes.push({
-        x: Math.random() * w,
-        y: Math.random() * h,
-        vx: (Math.random() - 0.5) * 0.4,
-        vy: (Math.random() - 0.5) * 0.4
-      });
-    }
-
-    window.addEventListener('mousemove', e => {
-      mouse.x = e.clientX;
-      mouse.y = e.clientY;
+    // Konami easter egg
+    let seq = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'], i = 0;
+    document.addEventListener('keydown', e => {
+      if (e.key === seq[i]) { if (++i === seq.length) { document.body.style.animation = 'rainbow 2s linear infinite'; setTimeout(() => document.body.style.animation = '', 8000); alert('🎮 nerd 🌈'); i = 0; } } else i = 0;
     });
-
-    function draw() {
-      ctx.clearRect(0, 0, w, h);
-      ctx.fillStyle = '#64c8ff';
-
-      nodes.forEach(n => {
-        n.x += n.vx;
-        n.y += n.vy;
-
-        if (n.x < 0 || n.x > w) n.vx *= -1;
-        if (n.y < 0 || n.y > h) n.vy *= -1;
-
-        const dx = mouse.x - n.x;
-        const dy = mouse.y - n.y;
-        const dist = Math.sqrt(dx*dx + dy*dy);
-        
-        if (dist < 120) {
-          n.x -= dx * 0.008;
-          n.y -= dy * 0.008;
-        }
-
-        ctx.beginPath();
-        ctx.arc(n.x, n.y, 2, 0, Math.PI * 2);
-        ctx.fill();
-      });
-
-      ctx.strokeStyle = 'rgba(100, 200, 255, 0.15)';
-      ctx.lineWidth = 1;
-      nodes.forEach(a => {
-        nodes.forEach(b => {
-          let dx = a.x - b.x;
-          let dy = a.y - b.y;
-          let dist = Math.sqrt(dx*dx + dy*dy);
-          if (dist < 120) {
-            ctx.beginPath();
-            ctx.moveTo(a.x, a.y);
-            ctx.lineTo(b.x, b.y);
-            ctx.stroke();
-          }
-        });
-      });
-
-      requestAnimationFrame(draw);
-    }
-    draw();
-
-    // Easter egg - Konami code
-    let konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
-    let konamiIndex = 0;
-
-    document.addEventListener('keydown', (e) => {
-      if (e.key === konamiCode[konamiIndex]) {
-        konamiIndex++;
-        if (konamiIndex === konamiCode.length) {
-          activateEasterEgg();
-          konamiIndex = 0;
-        }
-      } else {
-        konamiIndex = 0;
-      }
-    });
-
-    function activateEasterEgg() {
-      document.body.style.animation = 'rainbow 2s linear infinite';
-      
-      const style = document.createElement('style');
-      style.textContent = `
-        @keyframes rainbow {
-          0% { filter: hue-rotate(0deg); }
-          100% { filter: hue-rotate(360deg); }
-        }
-      `;
-      document.head.appendChild(style);
-
-      setTimeout(() => {
-        document.body.style.animation = '';
-      }, 10000);
-
-      alert('🎮 nerd 🌈');
-    }
   </script>
 </body>
 </html>
