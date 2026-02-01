@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Zakhar Liskovyi</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap');
 
     * {
       margin: 0;
@@ -29,7 +28,7 @@
     }
 
     body {
-      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-family: Helvetica, Arial, sans-serif;
       background: var(--cream);
       color: var(--text);
       overflow-x: hidden;
@@ -199,23 +198,6 @@
       color: var(--text);
       margin-bottom: 20px;
       letter-spacing: -0.3px;
-    }
-
-    .tool-bar-bg {
-      height: 3px;
-      background: var(--lilac-light);
-      width: 100%;
-    }
-
-    .tool-bar-fill {
-      height: 100%;
-      background: var(--lilac-dark);
-      width: 0;
-      transition: width 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .tool-item:hover .tool-bar-fill {
-      width: var(--level);
     }
 
     /* Projects */
@@ -420,7 +402,7 @@
     <p class="hero-tag">Robotics & Engineering</p>
     <h1>Zakhar<br><em>Liskovyi</em></h1>
     <div class="hero-bottom">
-      <p class="hero-desc">Building things that sit at the intersection of hardware, software, and design. From custom keyboards to walking robots.</p>
+      <p class="hero-desc">Building things that sit at the intersection of hardware, software, and design.</p>
       <div class="hero-scroll">
         <div class="scroll-line"></div>
         Scroll
@@ -435,25 +417,20 @@
       <h2 class="section-title">Tools</h2>
     </div>
     <div class="tools-grid">
-      <div class="tool-item" style="--level:90%">
+      <div class="tool-item">
         <div class="tool-name">C++ & Java</div>
-        <div class="tool-bar-bg"><div class="tool-bar-fill"></div></div>
       </div>
-      <div class="tool-item" style="--level:85%">
+      <div class="tool-item">
         <div class="tool-name">Fusion 360</div>
-        <div class="tool-bar-bg"><div class="tool-bar-fill"></div></div>
       </div>
-      <div class="tool-item" style="--level:80%">
+      <div class="tool-item">
         <div class="tool-name">KiCad & PCB</div>
-        <div class="tool-bar-bg"><div class="tool-bar-fill"></div></div>
       </div>
-      <div class="tool-item" style="--level:88%">
+      <div class="tool-item">
         <div class="tool-name">Pi & Arduino</div>
-        <div class="tool-bar-bg"><div class="tool-bar-fill"></div></div>
       </div>
-      <div class="tool-item" style="--level:75%">
+      <div class="tool-item">
         <div class="tool-name">HTML / CSS</div>
-        <div class="tool-bar-bg"><div class="tool-bar-fill"></div></div>
       </div>
     </div>
   </section>
@@ -470,8 +447,7 @@
         <span class="project-name">Tetr.io Macro Pad</span>
         <div class="project-tags">
           <span class="project-tag">KMK</span>
-          <span class="project-tag">Python</span>
-          <span class="project-tag">PCB Design</span>
+          <span class="project-tag">KiCad</span>
         </div>
         <span class="project-arrow">↗</span>
       </a>
@@ -479,7 +455,7 @@
         <span class="project-num">02</span>
         <span class="project-name">Wordle Art Generator</span>
         <div class="project-tags">
-          <span class="project-tag">Python</span>
+          <span class="project-tag">HTML</span>
         </div>
         <span class="project-arrow">↗</span>
       </a>
@@ -487,9 +463,9 @@
         <span class="project-num">03</span>
         <span class="project-name">Kraken42 Keyboard</span>
         <div class="project-tags">
-          <span class="project-tag">Wireless</span>
-          <span class="project-tag">Ergonomic</span>
-          <span class="project-tag">OLED</span>
+          <span class="project-tag">ZMK</span>
+          <span class="project-tag">KiCad</span>
+          <span class="project-tag">Fusion 360</span>
         </div>
         <span class="project-arrow">↗</span>
       </a>
@@ -497,8 +473,7 @@
         <span class="project-num">04</span>
         <span class="project-name">Quadupod</span>
         <div class="project-tags">
-          <span class="project-tag">Robotics</span>
-          <span class="project-tag">Inverse Kinematics</span>
+          <span class="project-tag">Arduino</span>
         </div>
         <span class="project-arrow">↗</span>
       </a>
@@ -506,16 +481,8 @@
         <span class="project-num">05</span>
         <span class="project-name">Phohaf</span>
         <div class="project-tags">
-          <span class="project-tag">Gaming</span>
-          <span class="project-tag">RGB</span>
-        </div>
-        <span class="project-arrow">↗</span>
-      </a>
-      <a href="https://github.com/" class="project-row" target="_blank">
-        <span class="project-num">06</span>
-        <span class="project-name">Project 6</span>
-        <div class="project-tags">
-          <span class="project-tag">TBD</span>
+          <span class="project-tag">KiCad</span>
+          <span class="project-tag">QMK</span>
         </div>
         <span class="project-arrow">↗</span>
       </a>
