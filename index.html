@@ -39,7 +39,6 @@
     .nav-links a { text-decoration: none; color: var(--text-muted); font-size: 0.85rem; transition: color 0.2s; }
     .nav-links a:hover { color: var(--lilac-dark); }
 
-    /* Hero */
     .hero {
       height: 100vh;
       display: grid;
@@ -64,7 +63,6 @@
     .scroll-line { width: 1px; height: 50px; background: var(--lilac); animation: scrollPulse 2s infinite; }
     @keyframes scrollPulse { 0%,100% { opacity:1; transform:scaleY(1); } 50% { opacity:0.3; transform:scaleY(0.6); } }
 
-    /* 3D canvas area */
     .hero-right {
       height: 100%;
       display: flex;
@@ -72,37 +70,60 @@
       justify-content: center;
       position: relative;
     }
-    #threeCanvas {
-      width: 100%;
-      height: 100%;
-    }
+    #threeCanvas { width: 100%; height: 100%; }
 
-    /* Sections */
     section { padding: 140px 60px; }
     .section-header { display: flex; align-items: baseline; gap: 20px; margin-bottom: 80px; }
     .section-num { font-size: 0.75rem; color: var(--lilac-dark); font-weight: 500; letter-spacing: 1px; }
     .section-title { font-size: 2.8rem; font-weight: 700; letter-spacing: -1.5px; color: var(--text); }
 
-    /* Tools */
-    .tools-grid { display: grid; grid-template-columns: repeat(5,1fr); gap: 1px; background: var(--lilac-light); }
-    .tool-item { background: var(--cream); padding: 40px 30px; transition: background 0.25s; cursor: default; }
-    .tool-item:hover { background: var(--lilac-light); }
-    .tool-name { font-size: 1rem; font-weight: 700; color: var(--text); letter-spacing: -0.3px; }
+    /* ─── CONVEYOR ─── */
+    .conveyor-wrapper {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+      padding: 48px 0;
+    }
+    .conveyor-wrapper::before,
+    .conveyor-wrapper::after {
+      content: ''; position: absolute; top: 0; bottom: 0; width: 100px; z-index: 2; pointer-events: none;
+    }
+    .conveyor-wrapper::before { left: 0; background: linear-gradient(to right, var(--cream), transparent); }
+    .conveyor-wrapper::after { right: 0; background: linear-gradient(to left, var(--cream), transparent); }
 
-    /* Projects - Accordion on hover */
+    .belt-row { display: flex; align-items: center; gap: 56px; width: max-content; padding: 20px 0; }
+    .belt-row--forward { animation: beltForward 28s linear infinite; }
+    .belt-row--reverse { animation: beltReverse 32s linear infinite; }
+    @keyframes beltForward { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+    @keyframes beltReverse { 0% { transform: translateX(-50%); } 100% { transform: translateX(0); } }
+
+    .belt-item {
+      display: flex; align-items: center; gap: 14px;
+      background: rgba(255,255,255,0.55);
+      border: 1px solid rgba(196,181,212,0.35);
+      border-radius: 48px; padding: 14px 28px 14px 20px;
+      white-space: nowrap; flex-shrink: 0;
+      backdrop-filter: blur(4px);
+      transition: background 0.3s, border-color 0.3s, transform 0.3s;
+      cursor: default; user-select: none;
+    }
+    .belt-item:hover { background: rgba(255,255,255,0.85); border-color: var(--lilac); transform: translateY(-3px); }
+    .belt-item img {
+      width: 28px; height: 28px; object-fit: contain; display: block;
+      filter: brightness(0) invert(1) sepia(1) saturate(2) hue-rotate(230deg) brightness(0.55);
+      transition: filter 0.3s;
+    }
+    .belt-item:hover img { filter: none; }
+    .belt-item .belt-label { font-size: 0.82rem; font-weight: 600; color: var(--text); letter-spacing: -0.2px; }
+
+    /* Projects */
     .projects-list { display: flex; flex-direction: column; }
     .project-item { border-bottom: 1px solid var(--lilac-light); overflow: hidden; }
     .project-item:first-child { border-top: 1px solid var(--lilac-light); }
-
     .project-row {
-      display: grid;
-      grid-template-columns: 80px 1fr 1fr auto;
-      align-items: center;
-      gap: 40px;
-      padding: 32px 0;
-      text-decoration: none;
-      color: inherit;
-      cursor: pointer;
+      display: grid; grid-template-columns: 80px 1fr 1fr auto;
+      align-items: center; gap: 40px; padding: 32px 0;
+      text-decoration: none; color: inherit; cursor: pointer;
       transition: padding 0.3s ease, background 0.3s ease;
     }
     .project-row:hover { padding-left: 16px; background: linear-gradient(90deg, rgba(196,181,212,0.06), transparent); }
@@ -114,33 +135,21 @@
     .project-arrow { color: var(--text-light); font-size: 1.2rem; transition: all 0.3s; }
     .project-row:hover .project-arrow { color: var(--lilac-dark); transform: translate(4px,-4px); }
     .project-item:hover .project-arrow { transform: rotate(90deg); color: var(--lilac-dark); }
-
-    .project-expand {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.6s cubic-bezier(0.16,1,0.3,1);
-    }
+    .project-expand { max-height: 0; overflow: hidden; transition: max-height 0.6s cubic-bezier(0.16,1,0.3,1); }
     .project-item:hover .project-expand { max-height: 340px; }
     .project-expand-inner { padding: 0 0 28px; }
     .project-expand-inner img {
-      width: 100%;
-      height: 280px;
-      object-fit: cover;
-      border-radius: 6px;
-      display: block;
-      transform: scale(0.97);
-      opacity: 0;
+      width: 100%; height: 280px; object-fit: cover; border-radius: 6px; display: block;
+      transform: scale(0.97); opacity: 0;
       transition: transform 0.5s cubic-bezier(0.16,1,0.3,1) 0.15s, opacity 0.4s ease 0.15s;
     }
     .project-item:hover .project-expand-inner img { transform: scale(1); opacity: 1; }
 
-    /* Activities */
     .activities-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 40px; }
     .activity-card { padding: 44px 0; border-top: 2px solid var(--lilac); }
     .activity-card h3 { font-size: 1.25rem; font-weight: 700; color: var(--text); letter-spacing: -0.4px; margin-bottom: 16px; }
     .activity-card p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.7; font-weight: 300; }
 
-    /* Contact */
     .contact-wrap { text-align: center; padding: 140px 60px 120px; }
     .contact-wrap .section-header { justify-content: center; margin-bottom: 40px; }
     .contact-big { font-size: clamp(2.5rem,6vw,5rem); font-weight: 700; letter-spacing: -2px; line-height: 1.15; color: var(--text); margin-bottom: 60px; }
@@ -160,12 +169,12 @@
       .hero-left { padding-bottom: 60px; }
       nav { padding: 22px 30px; }
       section { padding: 100px 30px; }
-      .tools-grid { grid-template-columns: repeat(2,1fr); }
       .project-row { grid-template-columns: 1fr auto; gap: 16px; }
       .project-num, .project-tags { display: none; }
       .activities-grid { grid-template-columns: 1fr; gap: 0; }
       .activity-card { padding: 32px 0; }
       .contact-wrap { padding: 100px 30px 80px; }
+      .conveyor-wrapper::before, .conveyor-wrapper::after { width: 50px; }
     }
   </style>
 </head>
@@ -194,12 +203,9 @@
 
   <section id="tools">
     <div class="section-header"><span class="section-num">01</span><h2 class="section-title">Tools</h2></div>
-    <div class="tools-grid">
-      <div class="tool-item"><div class="tool-name">C++ & Java</div></div>
-      <div class="tool-item"><div class="tool-name">Fusion 360</div></div>
-      <div class="tool-item"><div class="tool-name">KiCad & PCB</div></div>
-      <div class="tool-item"><div class="tool-name">Pi & Arduino</div></div>
-      <div class="tool-item"><div class="tool-name">HTML / CSS</div></div>
+    <div class="conveyor-wrapper">
+      <div class="belt-row belt-row--forward" id="belt1"></div>
+      <div class="belt-row belt-row--reverse" id="belt2"></div>
     </div>
   </section>
 
@@ -276,94 +282,94 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script>
-    // --- Three.js wireframe scene ---
-    const canvas = document.getElementById('threeCanvas');
-    const rect = canvas.parentElement.getBoundingClientRect();
-    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+    // ─── CONVEYOR BELT (Simple Icons, CC0) ───
+    const ROW1 = [
+      { slug:'cplusplus', label:'C++' },
+      { slug:'java', label:'Java' },
+      { slug:'autodesk', label:'Fusion 360' },
+      { slug:'kicad', label:'KiCad' },
+      { slug:'arduino', label:'Arduino' },
+    ];
+    const ROW2 = [
+      { slug:'raspberrypi', label:'Raspberry Pi' },
+      { slug:'html5', label:'HTML5' },
+      { slug:'css3', label:'CSS3' },
+      { slug:'javascript', label:'JavaScript' },
+      { slug:'python', label:'Python' },
+      { slug:'qmk', label:'QMK' },
+    ];
+    function makePill(t){
+      const d=document.createElement('div');
+      d.className='belt-item';
+      d.innerHTML=`<img src="https://cdn.simpleicons.org/${t.slug}" alt="${t.label}" loading="lazy"/><span class="belt-label">${t.label}</span>`;
+      return d;
+    }
+    function fillBelt(id,items){
+      const r=document.getElementById(id);
+      items.forEach(t=>r.appendChild(makePill(t)));
+      items.forEach(t=>r.appendChild(makePill(t)));
+    }
+    fillBelt('belt1',ROW1);
+    fillBelt('belt2',ROW2);
+
+    // ─── THREE.JS ─────────────────────────────
+    const canvas=document.getElementById('threeCanvas');
+    const rect=canvas.parentElement.getBoundingClientRect();
+    const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true});
     renderer.setPixelRatio(window.devicePixelRatio);
-    renderer.setSize(rect.width, rect.height);
-    renderer.setClearColor(0x000000, 0);
-
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(45, rect.width / rect.height, 0.1, 100);
-    camera.position.z = 4.5;
-
-    // Dodecahedron wireframe
-    const geo = new THREE.DodecahedronGeometry(1.0, 0);
-    const edges = new THREE.EdgesGeometry(geo);
-    const mat = new THREE.LineBasicMaterial({ color: 0xc4b5d4, transparent: true, opacity: 0.5 });
-    const wire = new THREE.LineSegments(edges, mat);
+    renderer.setSize(rect.width,rect.height);
+    renderer.setClearColor(0x000000,0);
+    const scene=new THREE.Scene();
+    const camera=new THREE.PerspectiveCamera(45,rect.width/rect.height,0.1,100);
+    camera.position.z=4.5;
+    const geo=new THREE.DodecahedronGeometry(1.0,0);
+    const edges=new THREE.EdgesGeometry(geo);
+    const mat=new THREE.LineBasicMaterial({color:0xc4b5d4,transparent:true,opacity:0.5});
+    const wire=new THREE.LineSegments(edges,mat);
     scene.add(wire);
-
-    // --- Mouse tracking (normalized -1 to 1 relative to the canvas) ---
-    const mouse = { x: 0, y: 0 };
-    const target = { x: 0, y: 0 };
-
-    document.addEventListener('mousemove', (e) => {
-      const r = canvas.parentElement.getBoundingClientRect();
-      // Map mouse position relative to the hero-right panel
-      mouse.x = ((e.clientX - r.left) / r.width) * 2 - 1;
-      mouse.y = -((e.clientY - r.top) / r.height) * 2 + 1;
+    const mouse={x:0,y:0}, target={x:0,y:0};
+    document.addEventListener('mousemove',(e)=>{
+      const r=canvas.parentElement.getBoundingClientRect();
+      mouse.x=((e.clientX-r.left)/r.width)*2-1;
+      mouse.y=-((e.clientY-r.top)/r.height)*2+1;
     });
-
-    // Touch support
-    document.addEventListener('touchmove', (e) => {
+    document.addEventListener('touchmove',(e)=>{
       e.preventDefault();
-      const touch = e.touches[0];
-      const r = canvas.parentElement.getBoundingClientRect();
-      mouse.x = ((touch.clientX - r.left) / r.width) * 2 - 1;
-      mouse.y = -((touch.clientY - r.top) / r.height) * 2 + 1;
-    }, { passive: false });
-
-    // Scroll fade
-    let scrollFade = 1;
-    window.addEventListener('scroll', () => {
-      const h = window.innerHeight;
-      scrollFade = Math.max(0, 1 - window.scrollY / h);
-    });
-
-    function resize() {
-      const r = canvas.parentElement.getBoundingClientRect();
-      renderer.setSize(r.width, r.height);
-      camera.aspect = r.width / r.height;
+      const touch=e.touches[0], r=canvas.parentElement.getBoundingClientRect();
+      mouse.x=((touch.clientX-r.left)/r.width)*2-1;
+      mouse.y=-((touch.clientY-r.top)/r.height)*2+1;
+    },{passive:false});
+    let scrollFade=1;
+    window.addEventListener('scroll',()=>{ scrollFade=Math.max(0,1-window.scrollY/window.innerHeight); });
+    function resize(){
+      const r=canvas.parentElement.getBoundingClientRect();
+      renderer.setSize(r.width,r.height);
+      camera.aspect=r.width/r.height;
       camera.updateProjectionMatrix();
     }
-    window.addEventListener('resize', resize);
-
-    let t = 0;
-    function animate() {
+    window.addEventListener('resize',resize);
+    let t=0;
+    function animate(){
       requestAnimationFrame(animate);
-      t += 0.005;
-
-      // Smoothly interpolate target toward mouse (eased follow)
-      target.x += (mouse.x - target.x) * 0.04;
-      target.y += (mouse.y - target.y) * 0.04;
-
-      // Base idle rotation
-      wire.rotation.x += -0.004;
-      wire.rotation.y += 0.006;
-
-      // Add cursor-driven tilt on top of the idle rotation
-      // Scale factor controls how strongly the mouse influences the shape
-      const tiltStrength = 1.2;
-      wire.rotation.x += (target.y * tiltStrength - wire.rotation.x) * 0.03;
-      wire.rotation.y += (target.x * tiltStrength - wire.rotation.y) * 0.03;
-
-      // Gentle breathing scale
-      const s = 1 + Math.sin(t) * 0.03;
-      wire.scale.set(s, s, s);
-
-      // Fade on scroll
-      mat.opacity = 0.5 * scrollFade;
-
-      renderer.render(scene, camera);
+      t+=0.005;
+      target.x+=(mouse.x-target.x)*0.04;
+      target.y+=(mouse.y-target.y)*0.04;
+      wire.rotation.x+=-0.004;
+      wire.rotation.y+=0.006;
+      const ts=1.2;
+      wire.rotation.x+=(target.y*ts-wire.rotation.x)*0.03;
+      wire.rotation.y+=(target.x*ts-wire.rotation.y)*0.03;
+      const s=1+Math.sin(t)*0.03;
+      wire.scale.set(s,s,s);
+      mat.opacity=0.5*scrollFade;
+      renderer.render(scene,camera);
     }
     animate();
 
     // Konami code easter egg
-    let seq = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'], i = 0;
-    document.addEventListener('keydown', e => {
-      if (e.key === seq[i]) { if (++i === seq.length) { document.body.style.animation = 'rainbow 2s linear infinite'; setTimeout(() => document.body.style.animation = '', 8000); alert('🎮 nerd 🌈'); i = 0; } } else i = 0;
+    let seq=['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'],i=0;
+    document.addEventListener('keydown',e=>{
+      if(e.key===seq[i]){if(++i===seq.length){document.body.style.animation='rainbow 2s linear infinite';setTimeout(()=>document.body.style.animation='',8000);alert('🎮 nerd 🌈');i=0;}}else i=0;
     });
   </script>
 </body>
