@@ -17,7 +17,7 @@
 
         body {
             background-color: #0a0a0f;
-            background-image: url('bg.jpg');
+            background-image: url('bg.jpeg');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -248,7 +248,7 @@
         <hr>
 
         <div class="quote">
-            Be alone, that is the secret of invention; be alone, that is when ideas are born. -Nikola Tesla
+            Be alone, that is the secret of invention; be alone, that is when ideas are born. -nikola tesla
         </div>
 
         <div class="footer">
@@ -263,7 +263,7 @@
         </div>
     </div>
 
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    <script>
         // Update time with seconds
         function updateTime() {
             const now = new Date();
@@ -273,4 +273,11 @@
                 second: '2-digit',
                 hour12: true 
             });
-            document.getElementById('time').tex
+            document.getElementById('time').textContent = `${timeString} Ashburn, VA`;
+        }
+        
+        updateTime();
+        setInterval(updateTime, 1000);
+    </script>
+</body>
+</html>
