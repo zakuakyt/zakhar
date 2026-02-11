@@ -3,202 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>zakhar liskovyi // @zakuak</title>
+    <title>zakhar's site</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
-    
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            background-color: #0a0a0f;
-            background-image: url('bg.jpeg');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            color: #d4d4d4;
-            font-family: 'Roboto Mono', monospace;
-            font-size: 14px;
-            line-height: 1.6;
-            padding: 60px 40px;
-        }
-
-        .container {
-            max-width: 720px;
-            margin: 0 auto;
-        }
-
-        header {
-            display: flex;
-            gap: 30px;
-            margin-bottom: 40px;
-        }
-
-        .avatar {
-            width: 100px;
-            height: 100px;
-            border-radius: 12px;
-            flex-shrink: 0;
-        }
-
-        .header-text h1 {
-            font-size: 24px;
-            font-weight: 700;
-            color: #ffffff;
-            margin-bottom: 5px;
-        }
-
-        .handle {
-            font-size: 14px;
-            color: #808080;
-            margin-bottom: 8px;
-        }
-
-        .tagline {
-            font-size: 14px;
-            color: #a0a0a0;
-            font-style: italic;
-        }
-
-        hr {
-            border: none;
-            border-top: 1px solid #404040;
-            margin: 40px 0;
-        }
-
-        h2 {
-            font-size: 18px;
-            font-weight: 700;
-            color: #ffffff;
-            margin-bottom: 20px;
-        }
-
-        p {
-            margin-bottom: 15px;
-            line-height: 1.8;
-        }
-
-        a {
-            color: #fb4d2b;
-            text-decoration: none;
-        }
-
-        a:hover {
-            text-decoration: underline;
-        }
-
-        .pink {
-            color: #fb4d2b;
-            font-weight: 700;
-        }
-
-        .links {
-            margin: 20px 0;
-        }
-
-        .links a {
-            margin-right: 8px;
-        }
-
-        .separator {
-            margin: 0 8px;
-            color: #808080;
-        }
-
-        ul {
-            list-style: none;
-            margin-top: 15px;
-        }
-
-        ul li {
-            margin-bottom: 10px;
-            padding-left: 15px;
-            position: relative;
-        }
-
-        ul li::before {
-            content: '•';
-            position: absolute;
-            left: 0;
-            color: #fb4d2b;
-        }
-
-        .quote {
-            text-align: center;
-            font-size: 16px;
-            font-style: italic;
-            color: #606060;
-            line-height: 1.4;
-            margin: 60px 0 40px;
-        }
-
-        .footer {
-            display: flex;
-            justify-content: space-between;
-            padding-top: 20px;
-            border-top: 1px solid #404040;
-            font-size: 14px;
-            color: #a0a0a0;
-        }
-
-        .footer-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        @media (max-width: 768px) {
-            body {
-                padding: 40px 20px;
-            }
-
-            header {
-                flex-direction: column;
-            }
-
-            .quote {
-                font-size: 14px;
-            }
-
-            .footer {
-                flex-direction: column;
-                gap: 15px;
-            }
-        }
-    </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <img src="main.png" alt="avatar" class="avatar">
-            <div class="header-text">
-                <h1>zakhar liskovyi</h1>
-                <div class="handle">// @zakuak</div>
-                <div class="tagline">builder, maker, & robotics enthusiast</div>
+            <div class="header-left">
+                <img src="main.png" alt="avatar" class="avatar">
+                <div class="header-text">
+                    <h1>zakhar liskovyi</h1>
+                    <div class="handle">aka @zakuak, @zakuakyt</div>
+                    <div class="tagline">builder, maker, & robotics enthusiast</div>
+                </div>
             </div>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                <span id="themeIcon">☀️</span>
+            </button>
         </header>
 
         <hr>
 
         <section>
-            <h2>about!</h2>
-            <p>Hi there! I'm Zakhar. I go by zakuak online. I'm a <span class="pink">maker and engineer</span> who's been building projects for years!</p>
+            <h2>about me</h2>
+            <p>I'm Zakhar, but you'll probably find me as zakuak or zakuakyt online. I'm a <span class="pink">maker</span> who's been building various projects for years!</p>
             
-            <p>I'm currently focused on building out robotics projects, custom keyboards, and various engineering experiments. I also run a STEM learning YouTube channel with <span class="pink">11,000 subscribers and 1,000,000+ views</span>.</p>
+            <p>I've fallen in love with engineering, robotics, and most recently, PCB design. I love constantly learning and picking up new skills.</p>
         </section>
 
         <hr>
 
         <section>
-            <h2>past adventures</h2>
-            <p>In the past, I <span class="pink">designed custom mechanical keyboards from scratch</span>, built a <span class="pink">4-legged walking robot</span>, and competed in VEX Robotics. (and also did Science Olympiad. and YouTube. and built keyboards. and some other random adventures)</p>
+            <h2>past</h2>
+            <p>Some things I've built over the years:</p>
+            
+            <ul>
+                <li><a href="https://github.com/zakuakyt/tetriopad"><strong>tetriopad</strong></a>, a custom macropad for gaming with KMK firmware</li>
+                <li><a href="https://github.com/zakuakyt/kraken42"><strong>Kraken42</strong></a>, a 42-key split ergonomic keyboard with ZMK</li>
+                <li><a href="https://www.youtube.com/watch?v=iVk-a_xjMxU"><strong>Quadupod</strong></a>, a 4-legged walking robot built with Arduino</li>
+                <li><a href="https://github.com/zakuakyt/wordleart"><strong>wordleart</strong></a>, a web tool to create pixel art from Wordle grids</li>
+                <li><a href="https://github.com/zakuakyt/bungeereg"><strong>bungeereg</strong></a>, regression analysis tool for science olympiad</li>
+            </ul>
+        </section>
 
-            <p style="margin-top: 25px;">Some cool things I've done:</p>
+        <hr>
+
+        <section>
+            <h2>present</h2>
+            <p>what I'm currently doing:</p>
             <ul>
                 <li><strong>VEX Robotics</strong> - Team captain and lead programmer for team 70220A Robocop</li>
                 <li><strong>Science Olympiad</strong> - National-qualifying team member with 20+ medals</li>
@@ -212,7 +68,7 @@
             <h2>future</h2>
             <ul>
                 <li>Host a <span class="pink">drone racing competition</span></li>
-                <li>Learn <span class="pink">AI/ML</span></li>
+                <li>Learn <span class="pink">computer vision</span></li>
                 <li>Working on a <span class="pink">USB Rubber Ducky</span></li>
             </ul>
         </section>
@@ -220,26 +76,12 @@
         <hr>
 
         <section>
-            <h2>things I've cobbled together</h2>
-            <p>I've been on this planet for a while! Here's some of the stuff I have cobbled together in the meantime:</p>
-            
-            <ul>
-                <li><a href="#"><strong>Tetr.io Macro Pad</strong></a>, a custom macro keyboard for gaming with KMK firmware!</li>
-                <li><a href="#"><strong>Kraken42 Keyboard</strong></a>, a 42-key split ergonomic keyboard with ZMK</li>
-                <li><a href="#"><strong>Quadupod</strong></a>, a 4-legged walking robot built with Arduino</li>
-                <li><a href="#"><strong>Wordle Art Generator</strong></a>, a web tool to create pixel art from Wordle grids</li>
-                <li><a href="#"><strong>Phohaf</strong></a>, a custom mechanical keyboard PCB designed in KiCad</li>
-                <li>more coming soon!</li>
-            </ul>
-        </section>
-
-        <section>
-            <p>Want to hang out? Find me at:</p>
+            <p>you can find me at:</p>
             
             <div class="links">
                 <a href="https://github.com/zakuakyt">github</a>
                 <span class="separator">~</span>
-                <a href="/cdn-cgi/l/email-protection#7e041f150b1f15070a3e19131f1712501d1113">zakuakyt[at]gmail.com</a>
+                <a href="mailto:zakuakyt@gmail.com">zakuakyt[at]gmail.com</a>
                 <span class="separator">~</span>
                 <a href="https://youtube.com/@zakuak">youtube</a>
             </div>
@@ -247,37 +89,111 @@
 
         <hr>
 
-        <div class="quote">
-            Be alone, that is the secret of invention; be alone, that is when ideas are born. -nikola tesla
-        </div>
+        <p style="font-size: 12px; color: var(--text-dim); text-align: center; font-style: italic;">psst... use ← → arrow keys to change colors</p>
 
         <div class="footer">
             <div class="footer-item">
-                <span>☀️</span>
+                <span id="dayEmoji">🌃</span>
                 <span id="time">Loading...</span>
             </div>
             <div class="footer-item">
-                <span>🌡️</span>
-                <span>Ashburn, VA</span>
+                <span></span>
+                <span>Zakhar Liskovyi 2026</span>
             </div>
         </div>
     </div>
 
     <script>
-        // Update time with seconds
+        // Color themes that users can cycle through
+        const colorThemes = [
+            { name: 'orange', color: '#fb4d2b' },
+            { name: 'blue', color: '#4cc9f0' },
+            { name: 'purple', color: '#b084ff' },
+            { name: 'pink', color: '#ff6bab' },
+            { name: 'green', color: '#4ecdc4' },
+            { name: 'red', color: '#ff6b6b' },
+            { name: 'yellow', color: '#ffd93d' }
+        ];
+
+        let currentColorIndex = 0;
+
+        // Load saved color preference
+        const savedColorIndex = localStorage.getItem('colorTheme');
+        if (savedColorIndex !== null) {
+            currentColorIndex = parseInt(savedColorIndex);
+        }
+
+        // Apply color theme
+        function applyColorTheme(index) {
+            const color = colorThemes[index].color;
+            document.documentElement.style.setProperty('--accent', color);
+            localStorage.setItem('colorTheme', index);
+        }
+
+        // Initialize color
+        applyColorTheme(currentColorIndex);
+
+        // Arrow key color changing
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') {
+                currentColorIndex = (currentColorIndex + 1) % colorThemes.length;
+                applyColorTheme(currentColorIndex);
+            } else if (e.key === 'ArrowLeft') {
+                currentColorIndex = (currentColorIndex - 1 + colorThemes.length) % colorThemes.length;
+                applyColorTheme(currentColorIndex);
+            }
+        });
+
+        // Theme toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        const html = document.documentElement;
+
+        // Check for saved theme preference or default to dark
+        const currentTheme = localStorage.getItem('theme') || 'dark';
+        html.setAttribute('data-theme', currentTheme);
+        themeIcon.textContent = currentTheme === 'dark' ? '☀️' : '🌙';
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            themeIcon.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+        });
+
+        // Time update - shows Eastern Time (UTC-5) for ALL users
         function updateTime() {
             const now = new Date();
-            const timeString = now.toLocaleTimeString('en-US', { 
+            
+            // Convert to Eastern Time (America/New_York)
+            const easternTime = new Date(now.toLocaleString('en-US', { 
+                timeZone: 'America/New_York' 
+            }));
+
+            const timeString = easternTime.toLocaleTimeString('en-US', { 
                 hour: 'numeric', 
                 minute: '2-digit',
                 second: '2-digit',
                 hour12: true 
             });
+
             document.getElementById('time').textContent = `${timeString} Ashburn, VA`;
+
+            const hour = easternTime.getHours();
+            const emoji = document.getElementById('dayEmoji');
+
+            if (hour >= 6 && hour < 18) {
+                emoji.textContent = "🌞"; 
+            } else {
+                emoji.textContent = "🌃"; 
+            }
         }
-        
+
         updateTime();
         setInterval(updateTime, 1000);
     </script>
+  
 </body>
 </html>
